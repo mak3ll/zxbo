@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>zxbo cnfgs</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@400;700;800&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: #0a0a0b;
+    color: #e8e8e0;
+    font-family: 'Outfit', sans-serif;
+    overflow: hidden;
+  }
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .grid-lines {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .accent-blob {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(120, 80, 255, 0.08) 0%, transparent 70%);
+    top: -100px; left: -100px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .accent-blob2 {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(80, 200, 180, 0.06) 0%, transparent 70%);
+    bottom: -80px; right: -80px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 560px;
+    padding: 0 24px;
+    text-align: center;
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: #7c6fff;
+    text-transform: uppercase;
+    border: 1px solid rgba(124, 111, 255, 0.3);
+    padding: 4px 14px;
+    border-radius: 2px;
+    margin-bottom: 18px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .headline {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(38px, 8vw, 62px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #f0f0e8;
+    animation: fadeUp 0.5s 0.08s ease both;
+    margin-bottom: 7px;
+  }
+
+  .headline .leak { color: #7c6fff; }
+
+  .paid-line {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: #454545;
+    letter-spacing: 0.1em;
+    margin-bottom: 22px;
+    animation: fadeUp 0.5s 0.13s ease both;
+  }
+
+  .discord-main-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 9px 18px;
+    border-radius: 6px;
+    background: rgba(124, 111, 255, 0.12);
+    color: #a89eff;
+    border: 1px solid rgba(124, 111, 255, 0.3);
+    transition: all 0.15s;
+    margin-bottom: 28px;
+    animation: fadeUp 0.5s 0.18s ease both;
+  }
+
+  .discord-main-btn:hover {
+    background: rgba(124, 111, 255, 0.2);
+    border-color: rgba(124, 111, 255, 0.55);
+  }
+
+  .section {
+    text-align: left;
+    margin-bottom: 12px;
+  }
+
+  .scripts-section { animation: fadeUp 0.5s 0.24s ease both; }
+  .buy-section     { animation: fadeUp 0.5s 0.31s ease both; }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #383838;
+    margin-bottom: 7px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 13px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    margin-bottom: 7px;
+  }
+
+  .card:last-child { margin-bottom: 0; }
+
+  .card:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(124, 111, 255, 0.22);
+    transform: translateY(-1px);
+  }
+
+  .card-name {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .card-name.teal   { color: #4ecdc4; }
+  .card-name.purple { color: #a89eff; }
+  .card-name.white  { color: #e0e0d8; }
+
+  .card-price {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: #4a4a4a;
+    margin-top: 3px;
+  }
+
+  .small-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    transition: all 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .small-btn.teal {
+    background: rgba(78, 205, 196, 0.1);
+    color: #4ecdc4;
+    border: 1px solid rgba(78, 205, 196, 0.2);
+  }
+  .small-btn.teal:hover {
+    background: rgba(78, 205, 196, 0.18);
+    border-color: rgba(78, 205, 196, 0.45);
+  }
+
+  .small-btn.purple {
+    background: rgba(168, 158, 255, 0.1);
+    color: #a89eff;
+    border: 1px solid rgba(168, 158, 255, 0.2);
+  }
+  .small-btn.purple:hover {
+    background: rgba(168, 158, 255, 0.18);
+    border-color: rgba(168, 158, 255, 0.45);
+  }
+
+  .small-btn.amber {
+    background: rgba(250, 199, 117, 0.1);
+    color: #fac775;
+    border: 1px solid rgba(250, 199, 117, 0.2);
+  }
+  .small-btn.amber:hover {
+    background: rgba(250, 199, 117, 0.18);
+    border-color: rgba(250, 199, 117, 0.45);
+  }
+
+  .arrow { transition: transform 0.15s; }
+  .small-btn:hover .arrow,
+  .discord-main-btn:hover .arrow { transform: translateX(3px); }
+
+  .footer-note {
+    margin-top: 18px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: #222;
+    text-transform: uppercase;
+    animation: fadeUp 0.5s 0.38s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-lines"></div>
+<div class="accent-blob"></div>
+<div class="accent-blob2"></div>
+
+<div class="container">
+
+  <div class="tag">zxbo cnfgs</div>
+
+  <div class="headline">we <span class="leak">leak</span> configs.</div>
+  <div class="paid-line">(paid &amp; private ones)</div>
+
+  <a class="discord-main-btn" href="https://discord.gg/cjJdh3xQFM" target="_blank">
+    Join our Discord <span class="arrow">→</span>
+  </a>
+
+  <!-- Scripts section -->
+  <div class="section scripts-section">
+    <div class="section-label">scripts:</div>
+
+    <div class="card">
+      <div class="card-name teal">Kicia</div>
+      <a class="small-btn teal" href="https://discord.gg/kicia" target="_blank">
+        Join Discord <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="card-name purple">Unamed Enhancements</div>
+      <a class="small-btn purple" href="https://discord.gg/zbPF5Yt2yn" target="_blank">
+        Join Discord <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Buy configs section -->
+  <div class="section buy-section">
+    <div class="section-label">buy configs:</div>
+
+    <div class="card">
+      <div>
+        <div class="card-name white">Legit Config</div>
+        <div class="card-price">60 robux</div>
+      </div>
+      <a class="small-btn amber" href="https://discord.gg/cjJdh3xQFM" target="_blank">
+        Buy <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <div class="card">
+      <div>
+        <div class="card-name white">Rage Config</div>
+        <div class="card-price">60 robux</div>
+      </div>
+      <a class="small-btn amber" href="https://discord.gg/cjJdh3xQFM" target="_blank">
+        Buy <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <p class="footer-note">zxbo cnfgs — all configs accessed via discord</p>
+
+</div>
+
+</body>
+</html>
